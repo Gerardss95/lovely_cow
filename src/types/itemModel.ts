@@ -5,7 +5,7 @@ export interface ApiItemsResponse {
 export interface itemModel {
   title: string
   description: string
-  price: number
+  price: string
   email: string
   image: string
 }

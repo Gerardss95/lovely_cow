@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.2",
+    "@testing-library/react": "^13.4.0",
     "@types/styled-components": "^5.1.26",
     "@vitest/coverage-c8": "^0.28.4",
     "@vitest/ui": "^0.28.4",
