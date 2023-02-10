@@ -1,5 +1,5 @@
 import React from 'react'
-import { itemModel } from '../../types/itemModel'
+import { itemModel } from '../../types/types'
 import styled from 'styled-components'
 
 const Item: React.FC<itemModel> = ({

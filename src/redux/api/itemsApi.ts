@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { initialApiState, ApiCallBase } from './apiConfiguration'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { ApiItemsResponse } from '../../types/itemModel'
+import { ApiItemsResponse } from '../../types/types'
 
 interface GetItemCall extends ApiCallBase {
     response: ApiItemsResponse

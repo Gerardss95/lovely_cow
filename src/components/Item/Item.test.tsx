@@ -1,6 +1,6 @@
 import { render, screen, cleanup } from '@testing-library/react'
 import { afterEach, describe, it } from 'vitest'
-import { itemModel } from '../../types/itemModel'
+import { itemModel } from '../../types/types'
 import { BrowserRouter as Router } from 'react-router-dom'
 import Item from './Item'
 
