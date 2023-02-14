@@ -1,23 +1,5 @@
 import { useState } from 'react'
-import { useAppDispatch, useAppSelector } from '../redux/hooks'
-import { getItems, resetItemsApiCall } from '../redux/api/itemsApi'
 import { itemModel } from '../types/types'
-
-// function usePagination() {
-//     const dispatch = useAppDispatch()
-//     const itemsApi = useAppSelector((store) => store.itemsApi.getItems)
-//     const items = useAppSelector(
-//         (store) => store.itemsApi.getItems.response.items
-//     )
-//     console.log(items)
-//     useEffect(() => {
-//         return () => {
-//             dispatch(resetItemsApiCall())
-//         }
-//     }, [itemsApi.loading, itemsApi.response])
-
-//     return { items }
-// }
 
 const usePagination = (items: itemModel[]) => {
     const [currentPage, setCurrentPage] = useState(1)
