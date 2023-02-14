@@ -3,20 +3,20 @@ import { initialApiState, ApiCallBase } from './apiConfiguration'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { ApiItemsResponse } from '../../types/types'
 
-interface GetItemCall extends ApiCallBase {
+interface GetItemsCall extends ApiCallBase {
     response: ApiItemsResponse
 }
 
 interface State {
-    getItem: GetItemCall
+    getItems: GetItemsCall
 }
 
 const initialState: State = {
-    getItem: initialApiState
+    getItems: initialApiState
 }
 
-export const getItem = createAsyncThunk(
-    'items/getItem',
+export const getItems = createAsyncThunk(
+    'items/getItems',
     async () => { 
         const response = await axios.get('https://frontend-tech-test-data.s3-eu-west-1.amazonaws.com/items.json')
         return response.data
@@ -26,21 +26,21 @@ export const itemsSlice = createSlice({
     name: 'items',
     initialState,
     reducers: {
-      resetItemsApiCall: (state) => {
-        state.getItem ={ ...initialApiState, response: state.getItem.response }
-      }
+        resetItemsApiCall: (state) => {
+        state.getItems ={ ...initialApiState, response: state.getItems.response }
+        }
     },
     extraReducers: (builder) => {
-        builder.addCase(getItem.pending, (state) => {
-            state.getItem.loading = 'pending'
+        builder.addCase(getItems.pending, (state) => {
+            state.getItems.loading = 'pending'
         })
-        builder.addCase(getItem.fulfilled, (state, action) => {
-            state.getItem.loading = 'succeeded'
-            state.getItem.response = action.payload
+        builder.addCase(getItems.fulfilled, (state, action) => {
+            state.getItems.loading = 'succeeded'
+            state.getItems.response = action.payload
         })
-        builder.addCase(getItem.rejected, (state, action) => {
-            state.getItem.loading = 'failed'
-            state.getItem.error = action.error.message
+        builder.addCase(getItems.rejected, (state, action) => {
+            state.getItems.loading = 'failed'
+            state.getItems.error = action.error.message
         })
     }
 })
