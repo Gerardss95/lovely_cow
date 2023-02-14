@@ -2,15 +2,20 @@ import React from 'react'
 import { itemModel } from '../../types/types'
 import styled from 'styled-components'
 
-const Item: React.FC<itemModel> = ({
+export interface ItemProps extends itemModel {
+    key: number
+}
+
+const Item: React.FC<ItemProps> = ({
     title,
     description,
     price,
     email,
-    image
+    image,
+    key
 }) => {
     return (
-        <div>
+        <div key={key}>
             <p>{title}</p>
             <p>{description}</p>
             <p>{price}</p>

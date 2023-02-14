@@ -19,7 +19,7 @@ describe('Item test', () => {
 
         render(
             <Router>
-                <Item {...item} />
+                <Item {...item} key={1} />
             </Router>
         )
 
