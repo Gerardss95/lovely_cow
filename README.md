@@ -1,5 +1,3 @@
-# Front-End Engineer - Technical assessment
-
 ## Installation
 
 1. Clone the repository
@@ -9,5 +7,8 @@
 
 ## Testing 
 
-Run `yarn test` to run the tests
+Run `yarn test` or `npm run test` to run the tests
+
+Run `yarn coverage` or `npm run coverage` to run the tests and generate a coverage report
+
 
