@@ -1,35 +1,61 @@
 import { render, screen, cleanup } from '@testing-library/react'
-import { afterEach, describe, it } from 'vitest'
+import { afterEach, describe, it, expect } from 'vitest'
 import { itemModel } from '../../types/types'
 import { BrowserRouter as Router } from 'react-router-dom'
+import configureStore from 'redux-mock-store'
+import thunk from 'redux-thunk'
+
 import Item from './Item'
 import { Provider } from 'react-redux'
+import { itemsListModel } from '../../pages/Home.page'
 
 describe('Item test', () => {
+    const middlewares = [thunk]
+    const mockStore = configureStore(middlewares)
+    const state = reduxState()
     afterEach(cleanup)
 
-    it('should render the item', () => {
-        const item: itemModel = {
-            title: 'iPhone 6S Oro',
-            description:
-                'Vendo un iPhone 6 S color Oro nuevo y sin estrenar. Me han dado uno en el trabajo y no necesito el que me compré. En tienda lo encuentras por 749 euros y yo lo vendo por 740. Las descripciones las puedes encontrar en la web de apple. Esta libre.',
-            price: '740',
-            email: 'iphonemail@wallapop.com"',
-            image: 'https://frontend-tech-test-data.s3-eu-west-1.amazonaws.com/img/camera.png'
-        }
-
-        render(
-            <Provider>
-                <Router>
-                    <Item item={item} key={1} />
-                </Router>
-            </Provider>
-        )
-
-        screen.getByText(item.title)
-        screen.getByText(item.description)
-        screen.getByText(item.price + '€')
-        screen.getByText(item.email)
-        screen.getByAltText('ProductImage')
+    const mockItem: itemsListModel = {
+        id: 1,
+        title: 'Test Item',
+        description: 'This is a test item',
+        email: 'test@test.com',
+        price: '100',
+        image: 'https://example.com/image.jpg'
+    }
+    describe('Item component', () => {
+        it('renders item data', () => {
+            const store = mockStore(state)
+            render(
+                <Provider store={store}>
+                    <Item item={mockItem} />
+                </Provider>
+            )
+            expect(screen.getByText(mockItem.title)).toBeTruthy()
+            expect(screen.getByText(`${mockItem.price}€`)).toBeTruthy()
+            expect(screen.getByText(mockItem.description)).toBeTruthy()
+            expect(screen.getByText(mockItem.email)).toBeTruthy()
+            expect(screen.getByAltText(/ProductImage/)).toBeTruthy()
+        })
+        it('renders item data', () => {
+            const store = mockStore(state)
+            render(
+                <Provider store={store}>
+                    <Item item={mockItem} />
+                </Provider>
+            )
+            expect(screen.getByText(mockItem.title)).toBeTruthy()
+            expect(screen.getByText(`${mockItem.price}€`)).toBeTruthy()
+            expect(screen.getByText(mockItem.description)).toBeTruthy()
+            expect(screen.getByText(mockItem.email)).toBeTruthy()
+            expect(screen.getByAltText(/ProductImage/)).toBeTruthy()
+        })
     })
 })
+function reduxState() {
+    return {
+        favoritesData: {
+            favoritesItemsList: []
+        }
+    }
+}

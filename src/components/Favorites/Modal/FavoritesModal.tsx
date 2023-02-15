@@ -26,7 +26,7 @@ const FavoritesModal: React.FC<Props> = ({ isOpen, onRequestClose }) => {
     }
     useEffect(() => {
         search.length > 0 && filteredItems()
-    }, [search])
+    }, [search, itemsFavorites])
 
     useEffect(() => {
         if (isOpen === false) {
@@ -34,6 +34,9 @@ const FavoritesModal: React.FC<Props> = ({ isOpen, onRequestClose }) => {
             setFavoritesFiltered(undefined)
         }
     }, [isOpen])
+    useEffect(() => {
+        setSearch('')
+    }, [itemsFavorites])
 
     return (
         <ModalDiv
@@ -49,25 +52,36 @@ const FavoritesModal: React.FC<Props> = ({ isOpen, onRequestClose }) => {
                     onChange={(e) => setSearch(e.target.value)}
                 />
                 <p>Here you can see your favorite items</p>
-                {favoritesFiltered
-                    ? favoritesFiltered.map((item) => (
-                          <FavoriteItem item={item} key={item.id} />
-                      ))
-                    : itemsFavorites.map((item) => (
-                          <FavoriteItem item={item} key={item.id} />
-                      ))}
+                <FavoritesList>
+                    {favoritesFiltered && favoritesFiltered?.length > 0
+                        ? favoritesFiltered.map((item) => (
+                              <FavoriteItem item={item} key={item.id} />
+                          ))
+                        : itemsFavorites.map((item) => (
+                              <FavoriteItem item={item} key={item.id} />
+                          ))}
+                </FavoritesList>
             </div>
         </ModalDiv>
     )
 }
+const FavoritesList = styled.div`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+`
 const ModalDiv = styled(Modal)`
     width: 50%;
-    height: 50%;
+    max-height: 50%;
+    height: fit-content;
     margin: auto;
     background-color: white;
     border: 1px solid black;
     border-radius: 35px;
-    padding: 20px;
+    padding: 3rem;
     margin-top: 200px;
+    overflow-y: auto;
 `
 export default FavoritesModal

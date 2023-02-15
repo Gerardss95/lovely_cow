@@ -9,6 +9,8 @@ import styled from 'styled-components'
 import Button from '../components/Button/Button'
 import SearchInput from '../components/SearchInput/SearchInput'
 import FavoritesModal from '../components/Favorites/Modal/FavoritesModal'
+import { SortBy } from '../hooks/useSortItems'
+import SortingButton from '../components/SortingButton/SortingButton'
 export interface itemsListModel extends itemModel {
     id: number
 }
@@ -21,11 +23,23 @@ const Home = () => {
         itemsListModel[] | undefined
     >(undefined)
     const [search, setSearch] = useState('')
+    const [sortingBy, setSortingBy] = useState<SortBy>('')
+    const [isDesc, setIsDesc] = useState<boolean | undefined>(undefined)
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
     function closeModal() {
         setIsModalOpen(false)
     }
-
+    const handleSorting = (value: SortBy) => {
+        if (value === sortingBy) {
+            setIsDesc(!isDesc)
+        } else if (value !== undefined) {
+            setIsDesc(true)
+        } else {
+            setIsDesc(undefined)
+        }
+        setSortingBy(value)
+        handleSortBy(value)
+    }
     useEffect(() => {
         itemsApi.loading === 'succeeded' &&
             itemsApi.response.items &&
@@ -83,18 +97,34 @@ const Home = () => {
                         onChange={(e) => setSearch(e.target.value)}
                     />
                     <SortDiv>
-                        <Button onClick={() => handleSortBy('title')}>
-                            <TextButton>Sort by title</TextButton>
-                        </Button>
-                        <Button onClick={() => handleSortBy('description')}>
-                            <TextButton>Sort by description</TextButton>
-                        </Button>
-                        <Button onClick={() => handleSortBy('price')}>
-                            <TextButton>Sort by price</TextButton>
-                        </Button>
-                        <Button onClick={() => handleSortBy('email')}>
-                            <TextButton>Sort by email</TextButton>
-                        </Button>
+                        <SortingButton
+                            label="Sort by title"
+                            value="title"
+                            sortingBy={sortingBy}
+                            isDesc={isDesc}
+                            onClick={handleSorting}
+                        />
+                        <SortingButton
+                            label="Sort by description"
+                            value="description"
+                            sortingBy={sortingBy}
+                            isDesc={isDesc}
+                            onClick={handleSorting}
+                        />
+                        <SortingButton
+                            label="Sort by price"
+                            value="price"
+                            sortingBy={sortingBy}
+                            isDesc={isDesc}
+                            onClick={handleSorting}
+                        />
+                        <SortingButton
+                            label="Sort by email"
+                            value="email"
+                            sortingBy={sortingBy}
+                            isDesc={isDesc}
+                            onClick={handleSorting}
+                        />
                     </SortDiv>
                 </div>
 
@@ -125,14 +155,6 @@ const Home = () => {
         </>
     )
 }
-
-const SortDiv = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-`
-
 const TextButton = styled.p`
     margin: 0;
     color: #00292b;
@@ -140,6 +162,13 @@ const TextButton = styled.p`
     font-size: 16px;
     line-height: 24px;
 `
+const SortDiv = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+`
+
 const Main = styled.main`
     display: flex;
     flex-direction: column;

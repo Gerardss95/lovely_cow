@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { itemModel } from '../../types/types'
 import styled from 'styled-components'
 import EmptyHeart from '../../assets/emptyHeart.svg'
 import FullHeart from '../../assets/fullHeart.svg'
@@ -8,9 +7,10 @@ import {
     removeFavoriteItem
 } from '../../redux/features/favourites/favoritesDataSlice'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
+import { itemsListModel } from '../../pages/Home.page'
 
 export interface ItemProps {
-    item: itemModel
+    item: itemsListModel
 }
 
 const Item: React.FC<ItemProps> = ({ item }) => {

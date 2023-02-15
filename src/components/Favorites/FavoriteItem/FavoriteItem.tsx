@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import EmptyHeart from '../../../assets/emptyHeart.svg'
+import DeleteItem from '../../../assets/delete.svg'
 import FullHeart from '../../../assets/fullHeart.svg'
 import { itemsListModel } from '../../../pages/Home.page'
 import { useAppDispatch } from '../../../redux/hooks'
@@ -14,32 +14,17 @@ interface FavoriteItemProps {
 }
 const FavoriteItem: React.FC<FavoriteItemProps> = ({ item }) => {
     const dispatch = useAppDispatch()
-    const [isFavourite, setIsFavourite] = useState(true)
-
-    const handleFavourite = (value: boolean) => {
-        setIsFavourite(value)
-        value
-            ? dispatch(addFavoriteItem(item))
-            : dispatch(removeFavoriteItem(item))
-    }
 
     return (
         <ItemDiv>
             <ItemImage src={item.image} alt="ProductImage" />
             <Title>{item.title}</Title>
-            {isFavourite ? (
-                <HeartButton
-                    onClick={() => handleFavourite(false)}
-                    src={FullHeart}
-                    alt="EmptyHeart"
-                />
-            ) : (
-                <HeartButton
-                    onClick={() => handleFavourite(true)}
-                    src={EmptyHeart}
-                    alt="FullHeart"
-                />
-            )}
+
+            <HeartButton
+                onClick={() => dispatch(removeFavoriteItem(item))}
+                src={DeleteItem}
+                alt="FullHeart"
+            />
         </ItemDiv>
     )
 }

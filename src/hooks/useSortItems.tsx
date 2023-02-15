@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { itemsListModel } from '../pages/Home.page'
 
-export type SortBy = 'title' | 'description' | 'price' | 'email'
+export type SortBy = 'title' | 'description' | 'price' | 'email' | ''
 
 export type SortOrder = 'asc' | 'desc'
 
