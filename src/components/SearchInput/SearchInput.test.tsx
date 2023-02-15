@@ -1,10 +1,8 @@
 import { render, screen, cleanup, fireEvent } from '@testing-library/react'
-import { afterEach, describe, it, vitest, expect } from 'vitest'
-import { BrowserRouter as Router } from 'react-router-dom'
+import { afterEach, describe, it, vi, expect } from 'vitest'
 import SearchInput from './SearchInput'
 describe('SearchInput component', () => {
-    const onChange = vitest.fn()
-    // const spyOnChangeTab = vitest.fn()
+    const onChange = vi.fn()
     afterEach(cleanup)
 
     it('should render with placeholder text', () => {
@@ -12,7 +10,6 @@ describe('SearchInput component', () => {
         render(
             <SearchInput placeholder={placeholderText} onChange={onChange} />
         )
-
         expect(screen.getByPlaceholderText(placeholderText))
     })
 })

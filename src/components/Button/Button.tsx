@@ -2,7 +2,6 @@ import React, { Children } from 'react'
 import styled from 'styled-components'
 
 export interface ButtonProps {
-    // type: 'button' | 'submit' | 'reset'
     onClick?: () => void
     disabled?: boolean
     children?: React.ReactNode

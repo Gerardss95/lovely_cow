@@ -11,6 +11,7 @@ import SearchInput from '../components/SearchInput/SearchInput'
 import FavoritesModal from '../components/Favorites/Modal/FavoritesModal'
 import { SortBy } from '../hooks/useSortItems'
 import SortingButton from '../components/SortingButton/SortingButton'
+import Pagination from '../components/Pagination/Pagination'
 export interface itemsListModel extends itemModel {
     id: number
 }
@@ -81,80 +82,68 @@ const Home = () => {
     }, [search])
 
     return (
-        <>
-            <Main>
-                <FavoritesModal
-                    isOpen={isModalOpen}
-                    onRequestClose={() => closeModal()}
+        <Main>
+            <FavoritesModal
+                isOpen={isModalOpen}
+                onRequestClose={() => closeModal()}
+            />
+            <h1 style={{ color: '#13C1AC' }}>Wallapop items manager app</h1>
+            <Button onClick={() => setIsModalOpen(true)}>
+                <TextButton>Favourites</TextButton>
+            </Button>
+            <div>
+                <SearchInput
+                    placeholder="Search"
+                    onChange={(e) => setSearch(e.target.value)}
                 />
-                <h1 style={{ color: '#13C1AC' }}>Wallapop items manager app</h1>
-                <Button onClick={() => setIsModalOpen(true)}>
-                    <TextButton>Favourites</TextButton>
-                </Button>
-                <div>
-                    <SearchInput
-                        placeholder="Search"
-                        onChange={(e) => setSearch(e.target.value)}
+                <SortDiv>
+                    <SortingButton
+                        label="Sort by title"
+                        value="title"
+                        sortingBy={sortingBy}
+                        isDesc={isDesc}
+                        onClick={handleSorting}
                     />
-                    <SortDiv>
-                        <SortingButton
-                            label="Sort by title"
-                            value="title"
-                            sortingBy={sortingBy}
-                            isDesc={isDesc}
-                            onClick={handleSorting}
-                        />
-                        <SortingButton
-                            label="Sort by description"
-                            value="description"
-                            sortingBy={sortingBy}
-                            isDesc={isDesc}
-                            onClick={handleSorting}
-                        />
-                        <SortingButton
-                            label="Sort by price"
-                            value="price"
-                            sortingBy={sortingBy}
-                            isDesc={isDesc}
-                            onClick={handleSorting}
-                        />
-                        <SortingButton
-                            label="Sort by email"
-                            value="email"
-                            sortingBy={sortingBy}
-                            isDesc={isDesc}
-                            onClick={handleSorting}
-                        />
-                    </SortDiv>
-                </div>
+                    <SortingButton
+                        label="Sort by description"
+                        value="description"
+                        sortingBy={sortingBy}
+                        isDesc={isDesc}
+                        onClick={handleSorting}
+                    />
+                    <SortingButton
+                        label="Sort by price"
+                        value="price"
+                        sortingBy={sortingBy}
+                        isDesc={isDesc}
+                        onClick={handleSorting}
+                    />
+                    <SortingButton
+                        label="Sort by email"
+                        value="email"
+                        sortingBy={sortingBy}
+                        isDesc={isDesc}
+                        onClick={handleSorting}
+                    />
+                </SortDiv>
+            </div>
 
-                <ItemsList>
-                    {currentItems &&
-                        currentItems.map((item) => (
-                            <Item item={item} key={item.id} />
-                        ))}
-                </ItemsList>
-                <div>
-                    <Button
-                        disabled={currentPage === 1}
-                        onClick={goToPreviousPage}
-                    >
-                        Previous page
-                    </Button>
-                    <a>{currentPage}</a>
-                    <a>of</a>
-                    <a>{totalPages}</a>
-                    <Button
-                        disabled={currentPage === totalPages}
-                        onClick={goToNextPage}
-                    >
-                        Next page
-                    </Button>
-                </div>
-            </Main>
-        </>
+            <ItemsList>
+                {currentItems &&
+                    currentItems.map((item) => (
+                        <Item item={item} key={item.id} />
+                    ))}
+            </ItemsList>
+            <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                goToPreviousPage={goToPreviousPage}
+                goToNextPage={goToNextPage}
+            />
+        </Main>
     )
 }
+
 const TextButton = styled.p`
     margin: 0;
     color: #00292b;

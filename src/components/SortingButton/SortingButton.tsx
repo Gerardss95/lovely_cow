@@ -4,13 +4,12 @@ import styled from 'styled-components'
 import Button from '../Button/Button'
 import ChevronUp from '../../assets/chevronUp.svg'
 import ChevronDown from '../../assets/chevronDown.svg'
-import { Mock } from 'vitest'
-interface SortButtonProps {
+export interface SortButtonProps {
     label: string
-    value: string
+    value: SortBy
     sortingBy: string
     isDesc: boolean | undefined
-    onClick: (value: string) => void
+    onClick: (value: SortBy) => void
 }
 const SortingButton: React.FC<SortButtonProps> = ({
     label,

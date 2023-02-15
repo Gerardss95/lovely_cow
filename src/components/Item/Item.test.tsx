@@ -1,10 +1,7 @@
 import { render, screen, cleanup } from '@testing-library/react'
 import { afterEach, describe, it, expect } from 'vitest'
-import { itemModel } from '../../types/types'
-import { BrowserRouter as Router } from 'react-router-dom'
 import configureStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
-
 import Item from './Item'
 import { Provider } from 'react-redux'
 import { itemsListModel } from '../../pages/Home.page'
@@ -21,7 +18,7 @@ describe('Item test', () => {
         description: 'This is a test item',
         email: 'test@test.com',
         price: '100',
-        image: 'https://example.com/image.jpg'
+        image: 'image.jpg'
     }
     describe('Item component', () => {
         it('renders item data', () => {

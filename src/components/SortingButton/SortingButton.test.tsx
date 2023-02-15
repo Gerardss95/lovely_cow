@@ -1,36 +1,34 @@
-import React from 'react'
 import { render, fireEvent, cleanup } from '@testing-library/react'
 import { afterEach, describe, it, vi, expect } from 'vitest'
-import { SortBy } from '../../hooks/useSortItems'
-
 import SortingButton from './SortingButton'
+import { SortButtonProps } from './SortingButton'
 
 describe('SortButton', () => {
     afterEach(cleanup)
-    const defaultProps = {
+    const testProps: SortButtonProps = {
         label: 'Test Label',
-        value: 'testValue',
+        value: 'title',
         sortingBy: '',
         isDesc: undefined,
         onClick: vi.fn()
     }
 
     it('should render the label text', () => {
-        const { getByText } = render(<SortingButton {...defaultProps} />)
-        expect(getByText(defaultProps.label)).toBeTruthy()
+        const { getByText } = render(<SortingButton {...testProps} />)
+        expect(getByText(testProps.label)).toBeTruthy()
     })
 
     it('should call onClick when clicked', () => {
-        const { getByRole } = render(<SortingButton {...defaultProps} />)
+        const { getByRole } = render(<SortingButton {...testProps} />)
         fireEvent.click(getByRole('button'))
-        expect(defaultProps.onClick).toHaveBeenCalledWith(defaultProps.value)
+        expect(testProps.onClick).toHaveBeenCalledWith(testProps.value)
     })
 
     it('should render the down chevron when sortingBy matches value and isDesc is true', () => {
         const { getByTestId } = render(
             <SortingButton
-                {...defaultProps}
-                sortingBy={defaultProps.value}
+                {...testProps}
+                sortingBy={testProps.value}
                 isDesc={true}
             />
         )
@@ -40,8 +38,8 @@ describe('SortButton', () => {
     it('should render the up chevron when sortingBy matches value and isDesc is false', () => {
         const { getByTestId } = render(
             <SortingButton
-                {...defaultProps}
-                sortingBy={defaultProps.value}
+                {...testProps}
+                sortingBy={testProps.value}
                 isDesc={false}
             />
         )
@@ -50,7 +48,7 @@ describe('SortButton', () => {
 
     it('should not render a chevron when sortingBy does not match value', () => {
         const { queryByTestId } = render(
-            <SortingButton {...defaultProps} sortingBy="other_value" />
+            <SortingButton {...testProps} sortingBy="other_value" />
         )
         expect(queryByTestId('chevron')).not.toBeTruthy()
     })

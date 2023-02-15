@@ -53,7 +53,7 @@ const FavoritesModal: React.FC<Props> = ({ isOpen, onRequestClose }) => {
                 />
                 <p>Here you can see your favorite items</p>
                 <FavoritesList>
-                    {favoritesFiltered && favoritesFiltered?.length > 0
+                    {favoritesFiltered && favoritesFiltered.length > 0
                         ? favoritesFiltered.map((item) => (
                               <FavoriteItem item={item} key={item.id} />
                           ))
@@ -69,8 +69,8 @@ const FavoritesList = styled.div`
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: space-around;
+    align-items: flex-start;
 `
 const ModalDiv = styled(Modal)`
     width: 50%;
