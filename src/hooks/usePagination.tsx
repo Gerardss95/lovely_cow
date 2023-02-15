@@ -4,9 +4,10 @@ import { itemModel } from '../types/types'
 const usePagination = (items: itemModel[]) => {
     const [currentPage, setCurrentPage] = useState(1)
 
-    const totalPages = Math.ceil(items.length / 5)
+    const totalPages = items && Math.ceil(items.length / 5)
 
-    const currentItems = items.slice((currentPage - 1) * 5, currentPage * 5)
+    const currentItems =
+        items && items.slice((currentPage - 1) * 5, currentPage * 5)
 
     const goToNextPage = () => {
         setCurrentPage((page) => Math.min(page + 1, totalPages))

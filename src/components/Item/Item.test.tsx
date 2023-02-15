@@ -19,13 +19,13 @@ describe('Item test', () => {
 
         render(
             <Router>
-                <Item {...item} key={1} />
+                <Item item={item} key={1} />
             </Router>
         )
 
         screen.getByText(item.title)
         screen.getByText(item.description)
-        screen.getByText(item.price)
+        screen.getByText(item.price + '€')
         screen.getByText(item.email)
         screen.getByAltText('ProductImage')
     })

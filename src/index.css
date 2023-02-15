@@ -1,0 +1,230 @@
+@layer base {
+  @font-face {
+    font-family: 'Wallie';
+    src: url('./../src/assets/fonts/Wallie/Wallie-Skinny.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Wallie Chunky';
+    src: url('./../src/assets/fonts/Wallie/Wallie-Chunky.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Wallie Fit';
+    src: url('./../src/assets/fonts/Wallie/Wallie-Fit.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @media (max-width: 599px) {
+        /* S */
+
+        h1 {
+            font-family: 'Wallie Chunky';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 36px;
+            line-height: 40px;
+        }
+        h2 {
+            font-family: 'Wallie Chunky';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 30px;
+            line-height: 36px;
+        }
+        h3 {
+            font-family: 'Wallie';
+            font-style: normal;
+            font-weight: 750;
+            font-size: 24px;
+            line-height: 32px;
+        }
+        h4 {
+            font-family: 'Wallie';
+            font-style: normal;
+            font-weight: 750;
+            font-size: 20px;
+            line-height: 28px;
+        }
+        h5 {
+            font-family: 'Wallie';
+            font-style: normal;
+            font-weight: 750;
+            font-size: 18px;
+            line-height: 28px;
+        }
+        h6 {
+            font-family: 'Wallie Fit';
+            font-style: normal;
+            font-weight: 750;
+            font-size: 16px;
+            line-height: 24px;
+        }
+        p {
+            font-family: 'Wallie';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 20px;
+        }
+    }
+    @media (min-width: 600px) {
+        /* M */
+        h1 {
+            font-family: 'Wallie Chunky';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 48px;
+            line-height: 48px;
+        }
+        h2 {
+            font-family: 'Wallie Chunky';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 36px;
+            line-height: 40px;
+        }
+        h3 {
+            font-family: 'Wallie';
+            font-style: normal;
+            font-weight: 750;
+            font-size: 30px;
+            line-height: 36px;
+        }
+        h4 {
+            font-family: 'Wallie';
+            font-style: normal;
+            font-weight: 750;
+            font-size: 24px;
+            line-height: 32px;
+        }
+        h5 {
+            font-family: 'Wallie';
+            font-style: normal;
+            font-weight: 750;
+            font-size: 20px;
+            line-height: 28px;
+        }
+        h6 {
+            font-family: 'Wallie Fit';
+            font-style: normal;
+            font-weight: 750;
+            font-size: 18px;
+            line-height: 28px;
+        }
+        p {
+            font-family: 'Wallie';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 20px;
+        }
+    }
+    @media (min-width: 900px) {
+        /* L */
+        h1 {
+            font-family: 'Wallie Chunky';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 48px;
+            line-height: 48px;
+        }
+        h2 {
+            font-family: 'Wallie Chunky';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 36px;
+            line-height: 40px;
+        }
+        h3 {
+            font-family: 'Wallie';
+            font-style: normal;
+            font-weight: 750;
+            font-size: 30px;
+            line-height: 36px;
+        }
+        h4 {
+            font-family: 'Wallie';
+            font-style: normal;
+            font-weight: 750;
+            font-size: 24px;
+            line-height: 32px;
+        }
+        h5 {
+            font-family: 'Wallie';
+            font-style: normal;
+            font-weight: 750;
+            font-size: 20px;
+            line-height: 28px;
+        }
+        h6 {
+            font-family: 'Wallie Fit';
+            font-style: normal;
+            font-weight: 750;
+            font-size: 18px;
+            line-height: 28px;
+        }
+        p {
+            font-family: 'Wallie';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 20px;
+        }
+    }
+    @media (min-width: 1200px) {
+        /* XL */
+        h1 {
+            font-family: 'Wallie Chunky';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 60px;
+            line-height: 60px;
+        }
+        h2 {
+            font-family: 'Wallie Chunky';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 48px;
+            line-height: 48px;
+        }
+        h3 {
+            font-family: 'Wallie';
+            font-style: normal;
+            font-weight: 750;
+            font-size: 36px;
+            line-height: 40px;
+        }
+        h4 {
+            font-family: 'Wallie';
+            font-style: normal;
+            font-weight: 750;
+            font-size: 30px;
+            line-height: 36px;
+        }
+        h5 {
+            font-family: 'Wallie';
+            font-style: normal;
+            font-weight: 750;
+            font-size: 24px;
+            line-height: 32px;
+        }
+        h6 {
+            font-family: 'Wallie Fit';
+            font-style: normal;
+            font-weight: 750;
+            font-size: 20px;
+            line-height: 28px;
+        }
+        p {
+            font-family: 'Wallie';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 24px;
+        }
+    } 
+}

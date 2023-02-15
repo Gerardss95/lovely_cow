@@ -5,6 +5,9 @@ import usePagination from '../hooks/usePagination'
 import useSortItems from '../hooks/useSortItems'
 import { itemModel } from '../types/types'
 import Item from '../components/Item/Item'
+import styled from 'styled-components'
+import Button from '../components/Button/Button'
+import SearchInput from '../components/SearchInput/SearchInput'
 
 const Home = () => {
     const dispatch = useAppDispatch()
@@ -15,10 +18,8 @@ const Home = () => {
     >(undefined)
     const [search, setSearch] = useState('')
     useEffect(() => {
-        return () => {
-            setItemsList(itemsApi.response.items)
-            dispatch(resetItemsApiCall())
-        }
+        setItemsList(itemsApi.response.items)
+        // dispatch(resetItemsApiCall())
     }, [itemsApi.loading, itemsApi.response])
 
     const { items, handleSortBy } = useSortItems(
@@ -51,49 +52,97 @@ const Home = () => {
 
     return (
         <>
-            {currentItems && (
+            <Main>
+                <h1 style={{ color: '#13C1AC' }}>Wallapop items manager app</h1>
                 <div>
-                    <button
+                    <SearchInput
+                        placeholder="Search"
+                        onChange={(e) => setSearch(e.target.value)}
+                    />
+                    <SortDiv>
+                        <Button onClick={() => handleSortBy('title')}>
+                            <TextButton>Sort by title</TextButton>
+                        </Button>
+                        <Button onClick={() => handleSortBy('description')}>
+                            <TextButton>Sort by description</TextButton>
+                        </Button>
+                        <Button onClick={() => handleSortBy('price')}>
+                            <TextButton>Sort by price</TextButton>
+                        </Button>
+                        <Button onClick={() => handleSortBy('email')}>
+                            <TextButton>Sort by email</TextButton>
+                        </Button>
+                    </SortDiv>
+                </div>
+
+                <ItemsList>
+                    {currentItems &&
+                        currentItems.map((item, index) => (
+                            <Item item={item} key={index} />
+                        ))}
+                </ItemsList>
+                <div>
+                    <Button
                         disabled={currentPage === 1}
                         onClick={goToPreviousPage}
                     >
                         Previous page
-                    </button>
+                    </Button>
                     <a>{currentPage}</a>
                     <a>of</a>
                     <a>{totalPages}</a>
-                    <button
+                    <Button
                         disabled={currentPage === totalPages}
                         onClick={goToNextPage}
                     >
                         Next page
-                    </button>
-                    <div>
-                        <button onClick={() => handleSortBy('title')}>
-                            Sort by title
-                        </button>
-                        <button onClick={() => handleSortBy('description')}>
-                            Sort by description
-                        </button>
-                        <button onClick={() => handleSortBy('price')}>
-                            Sort by price
-                        </button>
-                        <button onClick={() => handleSortBy('email')}>
-                            Sort by email
-                        </button>
-                    </div>
-                    <input
-                        type="text"
-                        placeholder="Search"
-                        onChange={(e) => setSearch(e.target.value)}
-                    />
-                    {currentItems.map((item, index) => (
-                        <Item {...item} key={index} />
-                    ))}
+                    </Button>
                 </div>
-            )}
+            </Main>
         </>
     )
 }
 
+const SortDiv = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+`
+
+const TextButton = styled.p`
+    margin: 0;
+    color: #00292b;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 24px;
+`
+const Main = styled.main`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    /* height: 100vh; */
+    width: 100%;
+    background-color: #ffffff;
+`
+
+const ItemsList = styled.div`
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 20px 20px;
+    grid-template-areas:
+        '.'
+        '.'
+        '.';
+    @media (min-width: 768px) {
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 20px 50px;
+        grid-template-areas:
+            '. . .'
+            '. . .';
+    }
+`
 export default Home
