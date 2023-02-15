@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import SearchInput from '../../SearchInput/SearchInput'
 import { useAppSelector } from '../../../redux/hooks'
 import { itemsListModel } from '../../../pages/Home.page'
+import FavoriteItem from '../FavoriteItem/FavoriteItem'
 interface Props {
     isOpen: boolean
     onRequestClose: () => void
@@ -33,10 +34,6 @@ const FavoritesModal: React.FC<Props> = ({ isOpen, onRequestClose }) => {
             setFavoritesFiltered(undefined)
         }
     }, [isOpen])
-    useEffect(() => {
-        console.log('favoritesFiltered', favoritesFiltered)
-        console.log('itemsFavorites', itemsFavorites)
-    }, [favoritesFiltered, itemsFavorites])
 
     return (
         <ModalDiv
@@ -53,8 +50,12 @@ const FavoritesModal: React.FC<Props> = ({ isOpen, onRequestClose }) => {
                 />
                 <p>Here you can see your favorite items</p>
                 {favoritesFiltered
-                    ? favoritesFiltered.map((item) => <p>{item.title}</p>)
-                    : itemsFavorites.map((item) => <p>{item.title}</p>)}
+                    ? favoritesFiltered.map((item) => (
+                          <FavoriteItem item={item} key={item.id} />
+                      ))
+                    : itemsFavorites.map((item) => (
+                          <FavoriteItem item={item} key={item.id} />
+                      ))}
             </div>
         </ModalDiv>
     )

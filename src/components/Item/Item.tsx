@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { itemModel } from '../../types/types'
 import styled from 'styled-components'
 import EmptyHeart from '../../assets/emptyHeart.svg'
@@ -7,7 +7,7 @@ import {
     addFavoriteItem,
     removeFavoriteItem
 } from '../../redux/features/favourites/favoritesDataSlice'
-import { useAppDispatch } from '../../redux/hooks'
+import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 
 export interface ItemProps {
     item: itemModel
@@ -16,12 +16,23 @@ export interface ItemProps {
 const Item: React.FC<ItemProps> = ({ item }) => {
     const dispatch = useAppDispatch()
     const [isFavourite, setIsFavourite] = useState(false)
+    const itemsFavorites = useAppSelector(
+        (store) => store.favoritesData.favoritesItemsList
+    )
+    useEffect(() => {
+        const isItemFavourite = itemsFavorites.some(
+            (favoriteItem) => favoriteItem.id === item.id
+        )
+        isItemFavourite ? setIsFavourite(true) : setIsFavourite(false)
+    }, [itemsFavorites])
+
     const handleFavourite = (value: boolean) => {
         setIsFavourite(value)
         value
             ? dispatch(addFavoriteItem(item))
             : dispatch(removeFavoriteItem(item))
     }
+
     return (
         <ItemDiv>
             <ItemImage src={item.image} alt="ProductImage" />
