@@ -18,7 +18,6 @@ export interface itemsListModel extends itemModel {
 const Home = () => {
     const dispatch = useAppDispatch()
     const itemsApi = useAppSelector((store) => store.itemsApi.getItems)
-
     const [itemsList, setItemsList] = useState<itemsListModel[]>([])
     const [itemsListFiltered, setItemsListFiltered] = useState<
         itemsListModel[] | undefined
@@ -87,7 +86,7 @@ const Home = () => {
                 isOpen={isModalOpen}
                 onRequestClose={() => closeModal()}
             />
-            <h1 style={{ color: '#13C1AC' }}>Wallapop items manager app</h1>
+            <HomeTitle>Wallapop items manager app</HomeTitle>
             <Button onClick={() => setIsModalOpen(true)}>
                 <TextButton>Favourites</TextButton>
             </Button>
@@ -144,6 +143,9 @@ const Home = () => {
     )
 }
 
+const HomeTitle = styled.h1`
+    color: #13c1ac;
+`
 const TextButton = styled.p`
     margin: 0;
     color: #00292b;
