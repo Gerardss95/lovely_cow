@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { itemModel } from '../types/types'
+import { itemsListModel } from '../pages/Home.page'
 
-const usePagination = (items: itemModel[]) => {
+const usePagination = (items: itemsListModel[]) => {
     const [currentPage, setCurrentPage] = useState(1)
 
     const totalPages = items && Math.ceil(items.length / 5)

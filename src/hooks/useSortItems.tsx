@@ -1,14 +1,13 @@
 import { useState, useEffect } from 'react'
-import { itemModel } from '../types/types'
+import { itemsListModel } from '../pages/Home.page'
 
 export type SortBy = 'title' | 'description' | 'price' | 'email'
 
 export type SortOrder = 'asc' | 'desc'
 
-const useSortItems = (initialItems: itemModel[]) => {
+const useSortItems = (initialItems: itemsListModel[]) => {
     const [sortBy, setSortBy] = useState<SortBy>()
     const [sortOrder, setSortOrder] = useState<SortOrder>('asc')
-
     const sortedItems =
         initialItems &&
         [...initialItems].sort((a, b) => {

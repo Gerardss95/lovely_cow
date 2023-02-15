@@ -1,20 +1,45 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { itemModel } from '../../types/types'
 import styled from 'styled-components'
 import EmptyHeart from '../../assets/emptyHeart.svg'
 import FullHeart from '../../assets/fullHeart.svg'
+import {
+    addFavoriteItem,
+    removeFavoriteItem
+} from '../../redux/features/favourites/favoritesDataSlice'
+import { useAppDispatch } from '../../redux/hooks'
 
 export interface ItemProps {
     item: itemModel
 }
 
 const Item: React.FC<ItemProps> = ({ item }) => {
+    const dispatch = useAppDispatch()
+    const [isFavourite, setIsFavourite] = useState(false)
+    const handleFavourite = (value: boolean) => {
+        setIsFavourite(value)
+        value
+            ? dispatch(addFavoriteItem(item))
+            : dispatch(removeFavoriteItem(item))
+    }
     return (
         <ItemDiv>
             <ItemImage src={item.image} alt="ProductImage" />
             <SecondBox>
                 <Price>{item.price}€</Price>
-                <HeartButton src={EmptyHeart} alt="EmptyHeart" />
+                {isFavourite ? (
+                    <HeartButton
+                        onClick={() => handleFavourite(false)}
+                        src={FullHeart}
+                        alt="EmptyHeart"
+                    />
+                ) : (
+                    <HeartButton
+                        onClick={() => handleFavourite(true)}
+                        src={EmptyHeart}
+                        alt="FullHeart"
+                    />
+                )}
             </SecondBox>
             <Title>{item.title}</Title>
             <Description>{item.description}</Description>
@@ -42,15 +67,12 @@ const Email = styled.p`
     color: #13c1ac;
     font-size: 1.2rem;
     font-weight: 600;
-
     cursor: pointer;
-    /* text-align: center; */
 `
 const Description = styled.p`
     font-size: 0.8rem;
     font-weight: 400;
     text-overflow: ellipsis;
-    /* height: 3rem; */
 `
 const ItemImage = styled.img`
     object-fit: cover;

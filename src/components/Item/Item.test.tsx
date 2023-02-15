@@ -3,6 +3,7 @@ import { afterEach, describe, it } from 'vitest'
 import { itemModel } from '../../types/types'
 import { BrowserRouter as Router } from 'react-router-dom'
 import Item from './Item'
+import { Provider } from 'react-redux'
 
 describe('Item test', () => {
     afterEach(cleanup)
@@ -18,9 +19,11 @@ describe('Item test', () => {
         }
 
         render(
-            <Router>
-                <Item item={item} key={1} />
-            </Router>
+            <Provider>
+                <Router>
+                    <Item item={item} key={1} />
+                </Router>
+            </Provider>
         )
 
         screen.getByText(item.title)

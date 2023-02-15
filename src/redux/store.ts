@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import itemsApiReducer from './api/itemsApi'
+import favoritesDataReducer from './features/favourites/favoritesDataSlice'
 
 export const store = configureStore({
   reducer: {
-    itemsApi: itemsApiReducer
+    itemsApi: itemsApiReducer,
+    favoritesData: favoritesDataReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({}).concat([])
 })  

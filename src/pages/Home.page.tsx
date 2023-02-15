@@ -8,19 +8,35 @@ import Item from '../components/Item/Item'
 import styled from 'styled-components'
 import Button from '../components/Button/Button'
 import SearchInput from '../components/SearchInput/SearchInput'
-
+import FavoritesModal from '../components/Favorites/Modal/FavoritesModal'
+export interface itemsListModel extends itemModel {
+    id: number
+}
 const Home = () => {
     const dispatch = useAppDispatch()
     const itemsApi = useAppSelector((store) => store.itemsApi.getItems)
-    const [itemsList, setItemsList] = useState<itemModel[]>([])
+
+    const [itemsList, setItemsList] = useState<itemsListModel[]>([])
     const [itemsListFiltered, setItemsListFiltered] = useState<
-        itemModel[] | undefined
+        itemsListModel[] | undefined
     >(undefined)
     const [search, setSearch] = useState('')
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+    function closeModal() {
+        setIsModalOpen(false)
+    }
+
     useEffect(() => {
-        setItemsList(itemsApi.response.items)
-        // dispatch(resetItemsApiCall())
-    }, [itemsApi.loading, itemsApi.response])
+        itemsApi.loading === 'succeeded' &&
+            itemsApi.response.items &&
+            itemsApi.response.items.flatMap((item: itemModel, index) => {
+                setItemsList((itemsList) => [
+                    ...itemsList,
+                    { ...item, id: index }
+                ])
+            })
+        dispatch(resetItemsApiCall())
+    }, [itemsApi.response, itemsApi.loading])
 
     const { items, handleSortBy } = useSortItems(
         itemsListFiltered ? itemsListFiltered : itemsList
@@ -53,7 +69,14 @@ const Home = () => {
     return (
         <>
             <Main>
+                <FavoritesModal
+                    isOpen={isModalOpen}
+                    onRequestClose={() => closeModal()}
+                />
                 <h1 style={{ color: '#13C1AC' }}>Wallapop items manager app</h1>
+                <Button onClick={() => setIsModalOpen(true)}>
+                    <TextButton>Favourites</TextButton>
+                </Button>
                 <div>
                     <SearchInput
                         placeholder="Search"
@@ -77,8 +100,8 @@ const Home = () => {
 
                 <ItemsList>
                     {currentItems &&
-                        currentItems.map((item, index) => (
-                            <Item item={item} key={index} />
+                        currentItems.map((item) => (
+                            <Item item={item} key={item.id} />
                         ))}
                 </ItemsList>
                 <div>
