@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks'
 import { resetItemsApiCall } from '../redux/api/itemsApi'
 import usePagination from '../hooks/usePagination'
 import useSortItems from '../hooks/useSortItems'
-import { itemModel } from '../types/types'
+import { itemModel, itemsListModel } from '../types/types'
 import Item from '../components/Item/Item'
 import styled from 'styled-components'
 import Button from '../components/Button/Button'
@@ -12,19 +12,18 @@ import FavoritesModal from '../components/Favorites/Modal/FavoritesModal'
 import { SortBy } from '../hooks/useSortItems'
 import SortingButton from '../components/SortingButton/SortingButton'
 import Pagination from '../components/Pagination/Pagination'
-export interface itemsListModel extends itemModel {
-    id: number
-}
-const Home = () => {
+import ErrorIcon from '../assets/error.svg'
+
+const Home: React.FC = () => {
     const dispatch = useAppDispatch()
     const itemsApi = useAppSelector((store) => store.itemsApi.getItems)
     const [itemsList, setItemsList] = useState<itemsListModel[]>([])
     const [itemsListFiltered, setItemsListFiltered] = useState<
         itemsListModel[] | undefined
-    >(undefined)
+    >()
     const [search, setSearch] = useState('')
     const [sortingBy, setSortingBy] = useState<SortBy>('')
-    const [isDesc, setIsDesc] = useState<boolean | undefined>(undefined)
+    const [isDesc, setIsDesc] = useState<boolean | undefined>()
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
     function closeModal() {
         setIsModalOpen(false)
@@ -77,7 +76,7 @@ const Home = () => {
         return setItemsListFiltered(filteredItems)
     }
     useEffect(() => {
-        search.length >= 1 && filterItems()
+        search.length && filterItems()
     }, [search])
 
     return (
@@ -88,7 +87,7 @@ const Home = () => {
             />
             <HomeTitle>Wallapop items manager app</HomeTitle>
             <Button onClick={() => setIsModalOpen(true)}>
-                <TextButton>Favourites</TextButton>
+                <TextButton>Favorites</TextButton>
             </Button>
             <div>
                 <SearchInput
@@ -133,6 +132,12 @@ const Home = () => {
                         <Item item={item} key={item.id} />
                     ))}
             </ItemsList>
+            {currentItems.length === 0 && (
+                <div>
+                    <img src={ErrorIcon} alt="error" />
+                    <p>Sorry we have not found any item!</p>
+                </div>
+            )}
             <Pagination
                 currentPage={currentPage}
                 totalPages={totalPages}
@@ -156,8 +161,14 @@ const TextButton = styled.p`
 const SortDiv = styled.div`
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
+    @media (min-width: 768px) {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
 `
 
 const Main = styled.main`
@@ -171,15 +182,11 @@ const Main = styled.main`
 `
 
 const ItemsList = styled.div`
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    gap: 20px 20px;
-    grid-template-areas:
-        '.'
-        '.'
-        '.';
+    display: flex;
+    flex-direction: column;
+
     @media (min-width: 768px) {
+        display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         grid-template-rows: 1fr 1fr;
         gap: 20px 50px;

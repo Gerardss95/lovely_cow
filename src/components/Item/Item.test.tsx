@@ -4,7 +4,7 @@ import configureStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import Item from './Item'
 import { Provider } from 'react-redux'
-import { itemsListModel } from '../../pages/Home.page'
+import { itemsListModel } from '../../types/types'
 
 describe('Item test', () => {
     const middlewares = [thunk]

@@ -3,7 +3,7 @@ import Modal from 'react-modal'
 import styled from 'styled-components'
 import SearchInput from '../../SearchInput/SearchInput'
 import { useAppSelector } from '../../../redux/hooks'
-import { itemsListModel } from '../../../pages/Home.page'
+import { itemsListModel } from '../../../types/types'
 import FavoriteItem from '../FavoriteItem/FavoriteItem'
 interface Props {
     isOpen: boolean
@@ -37,7 +37,10 @@ const FavoritesModal: React.FC<Props> = ({ isOpen, onRequestClose }) => {
     useEffect(() => {
         setSearch('')
     }, [itemsFavorites])
-
+    const favoritesToRender =
+        favoritesFiltered && favoritesFiltered.length > 0
+            ? favoritesFiltered
+            : itemsFavorites
     return (
         <ModalDiv
             isOpen={isOpen}
@@ -46,25 +49,28 @@ const FavoritesModal: React.FC<Props> = ({ isOpen, onRequestClose }) => {
             ariaHideApp={false}
         >
             <div>
-                <h2>My Favorites</h2>
+                <ModalTitle>My Favorites</ModalTitle>
                 <SearchInput
                     placeholder="Search"
                     onChange={(e) => setSearch(e.target.value)}
                 />
-                <p>Here you can see your favorite items</p>
+                {favoritesToRender.length ? (
+                    <p>Here you can see your favorite items</p>
+                ) : (
+                    <p>No items added to favorite list!</p>
+                )}
                 <FavoritesList>
-                    {favoritesFiltered && favoritesFiltered.length > 0
-                        ? favoritesFiltered.map((item) => (
-                              <FavoriteItem item={item} key={item.id} />
-                          ))
-                        : itemsFavorites.map((item) => (
-                              <FavoriteItem item={item} key={item.id} />
-                          ))}
+                    {favoritesToRender.map((item) => (
+                        <FavoriteItem item={item} key={item.id} />
+                    ))}
                 </FavoritesList>
             </div>
         </ModalDiv>
     )
 }
+const ModalTitle = styled.h2`
+    color: #13c1ac;
+`
 const FavoritesList = styled.div`
     display: flex;
     flex-direction: row;
@@ -78,7 +84,7 @@ const ModalDiv = styled(Modal)`
     height: fit-content;
     margin: auto;
     background-color: white;
-    border: 1px solid black;
+    border: 1px solid #13c1ac;
     border-radius: 35px;
     padding: 3rem;
     margin-top: 200px;

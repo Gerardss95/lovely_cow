@@ -7,7 +7,7 @@ import {
     removeFavoriteItem
 } from '../../redux/features/favourites/favoritesDataSlice'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
-import { itemsListModel } from '../../pages/Home.page'
+import { itemsListModel } from '../../types/types'
 
 export interface ItemProps {
     item: itemsListModel
@@ -112,7 +112,7 @@ const ItemDiv = styled.div`
         '.'
         '.'
         '.';
-    width: 80%;
+    width: 220px;
     @media (min-width: 768px) {
         width: 220px;
     }

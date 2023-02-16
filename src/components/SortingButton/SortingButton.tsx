@@ -26,15 +26,18 @@ const SortingButton: React.FC<SortButtonProps> = ({
         }
     }
     const renderChevron = () => {
-        if (value === sortingBy) {
-            return isDesc ? (
-                <ChevronIcon src={ChevronDown} data-testid="chevron-down" />
-            ) : (
-                <ChevronIcon src={ChevronUp} data-testid="chevron-up" />
-            )
-        } else {
+        if (value !== sortingBy) {
             return <></>
         }
+
+        const chevronIcon = isDesc ? ChevronDown : ChevronUp
+
+        return (
+            <ChevronIcon
+                src={chevronIcon}
+                data-testid={isDesc ? 'chevron-down' : 'chevron-up'}
+            />
+        )
     }
     return (
         <Button onClick={handleClick}>
@@ -50,6 +53,7 @@ const TextButton = styled.p`
     font-weight: bold;
     font-size: 16px;
     line-height: 24px;
+  
 `
 const ChevronIcon = styled.img`
     margin: 0;

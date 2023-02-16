@@ -3,7 +3,7 @@ import { afterEach, describe, it, expect } from 'vitest'
 import { Provider } from 'react-redux'
 import configureStore from 'redux-mock-store'
 import FavoriteItem from './FavoriteItem'
-import { itemsListModel } from '../../../pages/Home.page'
+import { itemsListModel } from '../../../types/types'
 import { removeFavoriteItem } from '../../../redux/features/favourites/favoritesDataSlice'
 
 const mockStore = configureStore([])

@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import { itemsListModel } from '../../../pages/Home.page';
+import { itemsListModel } from '../../../types/types';
 
 interface State  {
   favoritesItemsList: itemsListModel[],

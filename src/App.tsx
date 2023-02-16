@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useEffect } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { useAppDispatch } from './redux/hooks'
 import { getItems } from './redux/api/itemsApi'

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { itemsListModel } from '../pages/Home.page'
+import { itemsListModel } from '../types/types'
 
 const usePagination = (items: itemsListModel[]) => {
     const [currentPage, setCurrentPage] = useState(1)

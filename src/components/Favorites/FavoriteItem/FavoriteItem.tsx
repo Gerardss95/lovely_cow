@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import DeleteItem from '../../../assets/delete.svg'
-import { itemsListModel } from '../../../pages/Home.page'
+import { itemsListModel } from '../../../types/types'
 import { useAppDispatch } from '../../../redux/hooks'
 import { removeFavoriteItem } from '../../../redux/features/favourites/favoritesDataSlice'
 

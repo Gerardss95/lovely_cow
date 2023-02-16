@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import Delete from '../../assets/delete.svg'
 interface SearchInputProps {
     placeholder: string
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void

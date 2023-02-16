@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
-import { itemsListModel } from '../pages/Home.page'
+import { useState } from 'react'
+import { itemsListModel } from '../types/types'
 
 export type SortBy = 'title' | 'description' | 'price' | 'email' | ''
 
